@@ -1,0 +1,558 @@
+
+
+nav{
+background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 80px; /* Thoda height kam kiya hai professional look ke liye */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Neeche halki shadow se depth aayegi */
+    position: sticky; /* Scroll karne par upar hi rahega */
+    top: 0;
+    z-index: 1000;
+}
+
+.navistdiv{
+   font-family: "Fira Code", monospace;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+.bracket{
+color: royalblue;
+    font-weight: bold;
+    transition: 0.3s;
+
+}
+.navistdiv:hover .bracket{
+    color:royalblue;
+}
+.navistdiv:hover {
+   color: royalblue;
+   text-shadow: 0px 2px 4px rgba(65,105,225,0.2);
+   transform: scale(1.05);
+}
+
+.rightchild ul{
+display: flex;
+gap: 10px;
+list-style: none;
+font-family:  "Fira Code", monospace;
+}
+.rightchild ul li a{
+    text-decoration: none;
+}
+.resumebutton{
+    border: 2px solid royalblue;
+    padding: 6px 18px;
+    border-radius: 5px;
+    color: royalblue;
+    font-weight: 600;
+    background-color: transparent;
+    transition: 0.3s;
+}
+
+.resumebutton:hover {
+background-color: royalblue;
+color: white;
+box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+}
+
+/* --- Desktop Settings --- */
+
+#check {
+    display: none; /* Checkbox को छुपा दो */
+}
+
+.checkbtn {
+    display: none; /* Desktop पर बटन नहीं दिखेगा */
+    font-size: 30px;
+    color: #1a1a1a;
+    cursor: pointer;
+    float: right;
+    line-height: 80px; /* Nav की हाइट के हिसाब से */
+}
+
+/* --- Mobile Media Query (Responsive खेल) --- */
+
+@media (max-width: 768px) {
+    nav {
+        padding: 0 20px; /* मोबाइल पर साइड स्पेस कम */
+    }
+
+    .checkbtn {
+        display: block; /* मोबाइल पर बटन दिखाओ */
+    }
+
+    .rightchild {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        background: #ffffff;
+        top: 80px; /* Navbar की हाइट के नीचे */
+        left: -100%; /* स्क्रीन से बाहर छुपा दो */
+        text-align: center;
+        transition: all .5s; /* स्मूथ स्लाइड */
+        z-index: 100;
+    }
+
+    .rightchild ul {
+        display: block; /* मोबाइल पर लिस्ट ऊपर-नीचे */
+        margin: 50px 0;
+    }
+
+    .rightchild ul li {
+        display: block;
+        margin: 30px 0;
+        line-height: 30px;
+    }
+
+    /* --- असली जादू: Checkbox टिक होने पर क्या हो --- */
+    #check:checked ~ .rightchild {
+        left: 0; /* स्क्रीन पर वापस आ जाएगा */
+    }
+}
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Hero Section Main Styling */
+.hero-section {
+    background-color: #fcfcfc; /* Halka off-white background professional lagta hai */
+    padding: 100px 0;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+}
+
+/* Text Side Styling */
+.hero-text {
+    flex: 1.2;
+    padding-right: 50px;
+    font-family: "poppins", sans-serif;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.name-highlight {
+    color: #4169e1; /* Royal Blue highlight */
+}
+
+.tagline {
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 35px;
+}
+
+/* Button Styling */
+.hero-btns {
+    display: flex;
+    gap: 20px;
+     
+}
+
+.btn-primary {
+    background-color: #4169e1;
+    color: #fff;
+    padding: 14px 30px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 15px rgba(65, 105, 225, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: #2e52c7;
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    border: 2px solid #4169e1;
+    color: #4169e1;
+    padding: 12px 30px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #f0f4ff;
+    transform: translateY(-3px);
+}
+
+/* Image Side Styling */
+.hero-img-box {
+   flex: 0.8;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero-img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px; /* Podium wali photo ke liye soft corners best hain */
+box-shadow: 6px 6px 0px #eef2ff; /* Modern floating shadow effect */
+    transition: 0.4s ease;
+    border: 6px solid #eef2ff;
+    background-color: #fff;
+
+}
+
+.hero-img:hover {
+  transform: translate(-4px, -4px );
+  box-shadow: 9px 9px 0px #dce6ff;
+  border-color: #dce6ff;
+   
+}
+
+
+.name-highlight, .tagline strong{
+    font-family: "fira code", monospace;
+}
+
+/* Responsive for Mobile */
+@media (max-width: 992px) {
+    .hero-container {
+        flex-direction: column-reverse; /* Mobile par photo upar aayegi */
+        text-align: center;
+    }
+    
+    .hero-text {
+        padding-right: 0;
+        margin-top: 40px;
+    }
+    
+    .hero-text h1 {
+        font-size: 2.8rem;
+    }
+    
+    .hero-btns {
+        justify-content: center;
+    }
+}
+
+
+
+
+
+
+
+/* --- Skills Section Styling --- */
+.skills-section {
+    padding: 100px 5%;
+    background-color: #fbfdff; /* Bahut halka blue tint */
+    text-align: center;
+}
+
+.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8rem;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    font-family: 'Poppins', sans-serif;
+    color: #666;
+    margin-bottom: 60px;
+    font-size: 1.1rem;
+  margin-bottom: 80px;
+  
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Skill Card Styling */
+.skill-card {
+    background: #ffffff;
+    padding: 40px 25px;
+    border-radius: 16px;
+    border: 1px solid #eef2ff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+    border-color: #4169e1; /* Royal Blue */
+    box-shadow: 0 20px 40px rgba(65, 105, 225, 0.1);
+}
+
+.icon-box {
+    font-size: 45px;
+    color: #4169e1;
+    margin-bottom: 20px;
+}
+
+.skill-card h3 {
+    font-family: 'Fira Code', monospace; /* Techy vibe */
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+}
+
+.skill-card p {
+    font-family: 'Poppins', sans-serif;
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.2rem;
+    }
+}
+
+
+
+
+
+
+
+/* --- Projects Section --- */
+.projects-section {
+    padding: 100px 5%;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.project-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eef2ff;
+    overflow: hidden;
+    text-align: left;
+    transition: 0.4s;
+    /* Hero Image wali Solid Shadow style */
+    box-shadow: 10px 10px 0px #eef2ff; 
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 15px 15px 0px #dce6ff;
+}
+
+.project-info {
+    padding: 30px;
+}
+
+.project-info h3 {
+    font-family: 'Fira Code', monospace;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.tech-used {
+    color: #4169e1; /* Royal Blue */
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.project-info ul {
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+.project-info li {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.project-link {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 2px solid #4169e1;
+    color: #4169e1;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.project-link:hover {
+    background: #4169e1;
+    color: white;
+}
+
+/* --- Projects Responsiveness --- */
+@media (max-width: 768px) {
+    .projects-section {
+        padding: 60px 20px; /* Mobile par padding kam kar di taaki jagah bache */
+    }
+
+    .section-title {
+        font-size: 2.2rem; /* Mobile screen ke hisaab se title thoda chota */
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr; /* Mobile par saare cards ek ke niche ek aayenge */
+        gap: 25px; /* Cards ke beech ka gap thoda kam */
+    }
+
+    .project-card {
+        box-shadow: 8px 8px 0px #eef2ff; /* Mobile par shadow ko halka sa chota kiya */
+    }
+
+    .project-info {
+        padding: 20px; /* Card ke andar ka space kam kiya */
+    }
+
+    .project-info h3 {
+        font-size: 1.2rem; /* Heading mobile ke liye thodi choti */
+    }
+}
+
+
+
+
+
+
+
+/* --- Contact Section Styles --- */
+.contact-section {
+    padding: 80px 5%;
+    background-color: #fbfdff; 
+    text-align: center;
+}
+
+.contact-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-card {
+    flex: 1;
+    background: #ffffff;
+    padding: 30px 20px;
+    border: 2px solid #eef2ff;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: 0.3s ease;
+    /* Neo-brutalism Solid Shadow */
+    box-shadow: 8px 8px 0px #eef2ff; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    border-color: #4169e1; /* Royal Blue */
+    box-shadow: 12px 12px 0px #dce6ff;
+}
+
+.contact-card i {
+    font-size: 2.5rem;
+    color: #4169e1;
+    margin-bottom: 15px;
+}
+
+.contact-card h3 {
+    font-family: 'Fira Code', monospace;
+    color: #1a1a1a;
+}
+
+/* --- Footer Styles --- */
+.main-footer {
+    padding: 40px 5%;
+    background-color: #ffffff;
+    border-top: 1px solid #eee;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer-name { font-size: 1.1rem; color: #333; margin-bottom: 5px; }
+.footer-info, .footer-college { color: #888; font-size: 0.85rem; margin-bottom: 5px; }
+
+/* --- EK HI MEDIA QUERY DONO KE LIYE --- */
+@media (max-width: 768px) {
+    /* 1. Contact Grid setup for Mobile */
+    .contact-grid {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .contact-card {
+        width: 100%;
+        max-width: 350px;
+        box-shadow: 6px 6px 0px #eef2ff; 
+    }
+
+    /* 2. Footer adjustment for Mobile */
+    .main-footer {
+        padding: 30px 10px;
+    }
+    
+    .footer-info, .footer-college {
+        font-size: 0.75rem; 
+    }
+}

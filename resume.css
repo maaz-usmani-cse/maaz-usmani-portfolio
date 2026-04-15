@@ -1,0 +1,224 @@
+body{
+   font-family: "Poppins", sans-serif; 
+}
+
+.header h1{
+    font-size: 32px;
+     font-weight: bold;
+   color: #000;
+margin-bottom: 0px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+.header span{
+    font-weight: bold;
+   color: #555;
+}
+
+.header a{
+    text-decoration: none;
+  color: #4169e1;
+  transition: 0.3s;
+  
+}
+
+.header a:hover{
+  color: navy;
+    text-decoration: underline;
+   
+}
+
+.header p {
+    font-size: 15px;
+    color: #555;
+  margin-top: 0px;
+margin-top: 10px;
+
+   
+}
+
+.header{
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.linkdingithub{
+
+margin: 5px 0;
+
+}
+
+.linkdingithub a{
+    font-size: 10px;
+}
+
+
+.resumesummary{
+    margin-top: 30px;
+   
+    padding: 0 10px;
+}
+.resumesummary h2{
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    margin-bottom: 0px;
+    
+    font-size: 1.3rem;
+    color: #000;
+}
+.resumesummary p{
+font-size: 1rem;
+text-align: justify;
+line-height: 1.6;
+color: #555;
+}
+.technicalskills{
+   margin-top: 35px;
+ padding: 0 10px;
+}
+
+.technicalskills h2{
+    font-size: 1.3rem;
+    color: #222;
+    border-bottom: 2px solid #333;
+    letter-spacing: 2px;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    margin-bottom: 0px;
+
+}
+
+.skilltable{
+    width: 100%;
+   border-collapse: collapse;
+   table-layout: fixed;
+}
+.label1{
+    width: 160px;
+    min-width: 150px;
+    font-size: 1rem;
+    padding: 10px 0;
+    vertical-align: top;
+    padding-right: 20px;
+    text-align: right;
+
+}
+.value{
+  font-size: 1rem;
+  padding: 10px 0;
+  color: #444;
+  vertical-align: top;
+  text-align: left;
+  /* word-wrap: break-word; */
+}
+
+
+.edu-header{
+ display: flex;   
+ justify-content: space-between;
+ align-items: baseline;
+ margin-bottom: 5px;
+}
+
+
+.education-section{
+    margin-top: 35px;
+    padding: 0 10px;
+}
+
+.section-title{
+font-size: 1.3rem;
+letter-spacing: 2px;
+color: #222;
+border-bottom: 2px solid #333;
+ padding-bottom: 5px;
+    margin-bottom: 15px;
+    margin-bottom: 0px;
+
+}
+
+.edu-item{
+    margin-bottom: 22px;
+}
+
+.degree-title{
+    font-size: 1.1rem;
+    margin: 0;
+    color: #000;
+}
+
+.university-info, .score-info{
+margin: 2px;
+color: #666;
+font-size: 0.95rem;
+}
+
+.institution-name{
+margin: 4px 0;
+color: #333;
+font-size: 1rem;
+}
+
+.edu-year{
+    font-weight: bold;
+    color: #444;
+    font-size: 1rem;
+}
+
+.project-sectiont-title{
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    padding-bottom: 5px;
+    margin-bottom: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #333;
+}
+
+.project-item{
+margin-bottom: 30px;
+}
+
+.project-section{
+    margin-top: 35px;
+}
+
+.project-item h3{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+    color: #111;
+    margin-bottom: 10px;
+
+}
+
+
+.project-item h3 span{
+    background-color: #eef2ff;
+    color: royalblue;
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    border-radius: 15px;
+    border: 1px solid #d1dbff;
+    text-transform: uppercase;
+    font-weight: bold;
+
+}
+
+.project-item ul{
+    margin: 0;
+   padding-left: 20px; 
+ 
+}
+
+
+.project-item ul li{
+    margin-bottom: 8px;
+    line-height: 1.6;
+    color: #444;
+    font-size: 0.95rem;
+}
