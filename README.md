@@ -1,21 +1,18 @@
 # Maaz Usmani | Full-Stack Developer Portfolio
 
-Welcome to my professional portfolio! I am a final-year Computer Science Engineering student at RITS (RGPV) passionate about building scalable web applications.
+Welcome to my professional portfolio! I am a Computer Science & Engineering graduate from RITS (RGPV), passionate about designing and building robust, scalable full-stack web applications and REST APIs.
 
 ## 🚀 Tech Stack
-* **Frontend:** React.js, JavaScript (ES6+), HTML5, CSS3
-* **Backend:** Python (Core & Advance), Django
-* **Database:** SQL
-* **Design:** Figma (UI/UX)
-* **Tools:** Git & GitHub, VS Code
+- **Frontend:** React.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Bootstrap
+- **Backend:** Python (Core & Advanced), Django, Django REST Framework
+- **Database:** SQL, SQLite
+- **Tools & Platforms:** Git, GitHub, VS Code, Figma (UI/UX)
 
-## 🛠️ Projects
-* **Message Encryption App:** A full-stack web app built with Django and Python.
-* **Personal Portfolio:** This responsive site designed in Figma and built with modern web tech.
+## 🛠️ Key Projects
+- **StudyBridge Platform:** An educational management application managing student batches, timetables, and notices built with Django, SQL, and responsive frontend tooling.
+- **Message Encryption App:** A full-stack web utility implementing Caesar cipher encryption logic using Python and Django.
+- **Personal Portfolio:** A clean, responsive portfolio showcasing software architecture, technical skills, and web projects.
 
-## 🌐 Connect with me
-* **LinkedIn:** [linkedin.com/in/maaz-usmani-cse](https://www.linkedin.com/in/maaz-usmani-cse/)
-* **GitHub:** [github.com/maaz-usmani-cse](https://github.com/maaz-usmani-cse)
-
-
-
+## 🌐 Connect With Me
+- **LinkedIn:** [linkedin.com/in/maaz-usmani-cse](https://www.linkedin.com/in/maaz-usmani-cse/)
+- **GitHub:** [github.com/maaz-usmani-cse](https://github.com/maaz-usmani-cse)

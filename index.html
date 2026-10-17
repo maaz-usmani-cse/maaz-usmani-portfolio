@@ -1,216 +1,1528 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Tagesschrift&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maaz Usmani | Python Full-Stack Developer & Software Engineer</title>
 
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyan: { DEFAULT: '#00f2fe', dark: '#0099a8' },
+            purple: { DEFAULT: '#7f00ff', neon: '#a855f7' },
+            emerald: { DEFAULT: '#00f5d4', dark: '#00b39b' },
+            darkbg: '#070913',
+            cardbg: 'rgba(15, 23, 42, 0.75)'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Three.js CDN for 3D Cyber Wireframe Visuals -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #070913;
+      color: #f1f5f9;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 3D Canvas Background Layer */
+    #webgl-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Interactive Cursor Glow */
+    #cursor-glow {
+      position: fixed;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(127, 0, 255, 0.06) 45%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: width 0.3s, height 0.3s, opacity 0.3s;
+    }
+
+    /* Custom Futuristic Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070913;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #00f2fe, #7f00ff);
+      border-radius: 4px;
+    }
+
+    /* Glassmorphism System matching reference screenshots */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.42);
+      transition: transform 0.25s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+      transform-style: preserve-3d;
+    }
+    .glass-card:hover {
+      border-color: rgba(0, 242, 254, 0.4);
+      box-shadow: 0 14px 44px 0 rgba(0, 242, 254, 0.15);
+    }
+
+    .glass-nav {
+      background: rgba(7, 9, 19, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Neon Gradients */
+    .text-gradient-cyan {
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .text-gradient-purple {
+      background: linear-gradient(135deg, #a855f7 0%, #7f00ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .text-gradient-emerald {
+      background: linear-gradient(135deg, #00f5d4 0%, #00b39b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Holographic Avatar Border Glow */
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 25px rgba(0, 242, 254, 0.5), 0 0 45px rgba(127, 0, 255, 0.35);
+      }
+      50% {
+        box-shadow: 0 0 40px rgba(0, 245, 212, 0.7), 0 0 65px rgba(168, 85, 247, 0.5);
+      }
+    }
+    .avatar-glow {
+      animation: pulseGlow 4s infinite ease-in-out;
+    }
+
+    /* Modal Backdrop */
+    .modal-active {
+      display: flex !important;
+      animation: fadeIn 0.2s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
-<body>
-    <nav>
+<body class="relative text-slate-100 selection:bg-cyan selection:text-black">
 
-        <input type="checkbox" id="check">
-        <div class="navistdiv">
-            <span class="bracket">&LT;</span>
-MAAZ USMANI
-            <span class="bracket">/&gt;</span>
-        </div>
+  <!-- Interactive Cursor Glow Canvas -->
+  <div id="cursor-glow"></div>
+  <canvas id="webgl-container"></canvas>
 
-<label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
-    </label>
-
-
-
-
-        <div class="rightchild">
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="./resume.html" target="_blank" class="resumebutton">Resume</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div >
-    </nav>
-
-
-
-
-
-    <section id="home" class="hero-section">
-    <div class="hero-container">
+  <header class="fixed top-0 left-0 w-full z-50">
+    <div id="scroll-progress" class="h-[2px] bg-gradient-to-r from-cyan via-purple to-emerald w-0 transition-all duration-150"></div>
+    <nav class="glass-nav transition-all duration-300">
+      <div class="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3.5">
         
-        <div class="hero-text">
-            <h1>Hi, I'm <span class="name-highlight">Maaz Usmani</span></h1>
-            <p class="tagline">Final Year <strong>Computer Science Engineering</strong> Student at <strong>RITS, Bhopal (RGPV)</strong>.</p>
-            <p class="description">
-                I am a passionate developer from Bihar, currently focusing on building robust logic using <strong>Python</strong> and <strong>SQL</strong>. 
-                I have <strong>hands-on experience</strong> in developing responsive web projects with HTML & CSS, and I am currently exploring <strong>Django</strong> for backend development.
-            </p>
+        <!-- Brand Signature -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan to-purple flex items-center justify-center font-extrabold text-white text-lg shadow-lg group-hover:scale-105 transition-transform duration-200">
+            MU
+          </div>
+          <div class="flex flex-col">
+            <span class="font-extrabold tracking-wider text-sm sm:text-base text-white group-hover:text-cyan transition-colors">MAAZ USMANI</span>
+            <span class="text-[10px] text-cyan font-mono tracking-widest uppercase">Python Full-Stack Dev</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden lg:flex items-center gap-7 font-medium text-xs tracking-wide text-slate-300">
+          <a href="#about" class="hover:text-cyan transition-colors flex items-center gap-1.5"><i class="fa-solid fa-user-astronaut text-xs text-cyan"></i> About</a>
+          <a href="#experience" class="hover:text-cyan transition-colors flex items-center gap-1.5"><i class="fa-solid fa-briefcase text-xs text-purple"></i> Experience</a>
+          <a href="#projects" class="hover:text-cyan transition-colors flex items-center gap-1.5"><i class="fa-solid fa-diagram-project text-xs text-emerald"></i> Projects</a>
+          <a href="#skills" class="hover:text-cyan transition-colors flex items-center gap-1.5"><i class="fa-solid fa-layer-group text-xs text-purple"></i> Skills</a>
+          <a href="#education" class="hover:text-cyan transition-colors flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap text-xs text-cyan"></i> Education</a>
+          <a href="#terminal" class="hover:text-cyan transition-colors flex items-center gap-1.5"><i class="fa-solid fa-terminal text-xs text-emerald"></i> CLI Terminal</a>
+          <a href="#contact" class="hover:text-cyan transition-colors flex items-center gap-1.5"><i class="fa-solid fa-paper-plane text-xs text-cyan"></i> Contact</a>
+        </div>
+
+        <!-- CTA & Mobile Trigger -->
+        <div class="flex items-center gap-3">
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan to-purple text-black font-mono shadow-md hover:shadow-[0_0_20px_rgba(0,242,254,0.4)] transition-all">
+            <i class="fa-solid fa-envelope"></i> Hire Me
+          </a>
+          <button id="mobile-menu-btn" class="lg:hidden text-slate-300 hover:text-white p-2 text-xl focus:outline-none" aria-label="Toggle Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden lg:hidden px-6 pt-3 pb-5 border-t border-slate-800 bg-[#070913]/95 backdrop-blur-xl flex flex-col gap-3 font-mono text-xs">
+        <a href="#about" class="mobile-nav-link p-2 rounded hover:bg-slate-800/60 hover:text-cyan"><i class="fa-solid fa-user-astronaut mr-2 text-cyan"></i> About</a>
+        <a href="#experience" class="mobile-nav-link p-2 rounded hover:bg-slate-800/60 hover:text-purple"><i class="fa-solid fa-briefcase mr-2 text-purple"></i> Experience</a>
+        <a href="#projects" class="mobile-nav-link p-2 rounded hover:bg-slate-800/60 hover:text-emerald"><i class="fa-solid fa-diagram-project mr-2 text-emerald"></i> Projects</a>
+        <a href="#skills" class="mobile-nav-link p-2 rounded hover:bg-slate-800/60 hover:text-purple"><i class="fa-solid fa-layer-group mr-2 text-purple"></i> Skills</a>
+        <a href="#education" class="mobile-nav-link p-2 rounded hover:bg-slate-800/60 hover:text-cyan"><i class="fa-solid fa-graduation-cap mr-2 text-cyan"></i> Education</a>
+        <a href="#terminal" class="mobile-nav-link p-2 rounded hover:bg-slate-800/60 hover:text-emerald"><i class="fa-solid fa-terminal mr-2 text-emerald"></i> CLI Terminal</a>
+        <a href="#contact" class="mobile-nav-link p-2 rounded hover:bg-slate-800/60 hover:text-cyan"><i class="fa-solid fa-paper-plane mr-2 text-cyan"></i> Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 space-y-36">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="min-h-[85vh] flex items-center justify-center pt-4">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+        
+        <!-- Left Hero Presentation -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan/10 border border-cyan/30 text-cyan text-xs font-mono tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-cyan animate-pulse"></span>
+            3D INTERACTIVE DEVELOPER PORTFOLIO
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+            Hi, I'm <br>
+            <span class="text-gradient-cyan">MAAZ USMANI</span>
+          </h1>
+
+          <!-- Typewriter Effect Line -->
+          <div class="text-xl sm:text-2xl font-mono text-slate-300 h-9 flex items-center justify-center lg:justify-start gap-1 font-semibold">
+            <span class="text-cyan font-bold">&gt;</span>
+            <span id="typewriter" class="text-slate-100"></span>
+            <span class="inline-block w-2.5 h-6 bg-cyan animate-pulse"></span>
+          </div>
+
+          <p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Translating complex system requirements into scalable web applications, robust backend architectures, and normalized database schemas with Python, Django, MySQL, and modern JavaScript.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#contact" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan to-purple text-black font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-[0_0_24px_rgba(0,242,254,0.4)] transition-all">
+              <i class="fa-solid fa-paper-plane mr-1.5"></i> Get In Touch
+            </a>
+            <a href="https://github.com/maaz-usmani-cse" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl glass-card text-white font-mono text-xs uppercase tracking-wider border border-slate-700 hover:border-cyan hover:text-cyan transition-all flex items-center gap-2">
+              <i class="fa-brands fa-github text-sm"></i> GitHub Profile
+            </a>
+            <a href="https://linkedin.com/in/maaz-usmani-cse" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl glass-card text-slate-300 font-mono text-xs border border-slate-800 hover:border-emerald hover:text-emerald transition-all flex items-center gap-2">
+              <i class="fa-brands fa-linkedin text-xs"></i> LinkedIn
+            </a>
+          </div>
+
+          <!-- Core Stack Mini-Badges -->
+          <div class="pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 text-xs font-mono text-slate-400">
+            <span class="text-slate-500 font-semibold text-[11px] mr-1">Core Stack:</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 flex items-center gap-1.5 text-cyan"><i class="fa-brands fa-python"></i> Python</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 flex items-center gap-1.5 text-emerald"><i class="fa-solid fa-code"></i> Django & DRF</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 flex items-center gap-1.5 text-purple"><i class="fa-solid fa-database"></i> MySQL & SQL</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 flex items-center gap-1.5 text-cyan"><i class="fa-brands fa-js"></i> JavaScript</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 flex items-center gap-1.5 text-emerald"><i class="fa-brands fa-react"></i> React.js</span>
+          </div>
+
+        </div>
+
+        <!-- Right Floating Holographic Profile Card -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="w-full max-w-md glass-card rounded-3xl p-7 border border-cyan/30 relative overflow-hidden group">
             
-            <div class="hero-btns">
-                <a href="#contact" class="btn-primary">Get In Touch</a>
-                <a href="resume.html" target="_blank" class="btn-secondary">View Resume</a>
-            </div>
-        </div>
+            <!-- Ambient Card Glow Corner -->
+            <div class="absolute -top-16 -right-16 w-44 h-44 bg-cyan/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -left-16 w-44 h-44 bg-purple/20 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="hero-img-box">
-            <img src="image/maaz_clg-removebg-preview.png" alt="Maaz Usmani - RITS Bhopal" class="hero-img">
-        </div>
-
-    </div> 
-</section>
-
-
-
-
-
-
-
-
-<section id="skills" class="skills-section">
-    <div class="container">
-        <h2 class="section-title">Technical Proficiency</h2>
-        <p class="section-subtitle">
-            Focused on building robust logic and responsive designs during my 4th year at 
-            <strong>RITS, Bhopal</strong>.
-        </p>
-
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="icon-box"><i class="fa-brands fa-python"></i></div>
-                <h3>Programming</h3>
-                <p>Core & <strong>Advance Python</strong> for logic building and automation.</p>
-            </div>
-
-            <div class="skill-card">
-                <div class="icon-box"><i class="fa-solid fa-code"></i></div>
-                <h3>Frontend</h3>
-                <p><strong>HTML5 , CSS3 , JavaScript , React.js </strong> for interactive and responsive layouts.</p>
-            </div>
-
-            <div class="skill-card">
-                <div class="icon-box"><i class="fa-solid fa-database"></i></div>
-                <h3>Data & Backend</h3>
-                <p><strong>SQL</strong> (Queries & Joins) and Full-stack development with <strong>Django</strong>.</p>
-            </div>
-
-            <div class="skill-card">
-                <div class="icon-box"><i class="fa-brands fa-github"></i></div>
-                <h3>Tools & Design</h3>
-                <p>Version control with <strong>GitHub</strong>, coding in <strong>VS Code</strong> & <strong>Figma</strong> for UI.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
-
-
-<section id="projects" class="projects-section">
-    <div class="container">
-        <h2 class="section-title">Academic & Personal Projects</h2>
-        <p class="section-subtitle">A collection of logic-based and web development work.</p>
-
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-info">
-                    <h3>ATM Simulation System</h3>
-                    <p class="tech-used">Python | Logic Building</p>
-                    <ul>
-                        <li>Developed a functional ATM interface with secure PIN verification.</li>
-                        <li>Implemented features like balance check, withdrawal, and deposit.</li>
-                        <li>Focused on edge-case handling for incorrect inputs.</li>
-                    </ul>
-                    <a href="your-github-link" class="project-link">View Source <i class="fa-brands fa-github"></i></a>
+            <!-- Glowing Circular Holographic Avatar -->
+            <div class="flex flex-col items-center text-center">
+              <div class="relative w-44 h-44 rounded-full p-1 avatar-glow bg-gradient-to-tr from-cyan via-purple to-emerald flex items-center justify-center mb-5">
+                <div class="w-full h-full rounded-full bg-[#0a0f1d] flex flex-col items-center justify-center p-4 border border-cyan/40">
+                  <div class="w-14 h-14 rounded-full bg-cyan/10 border border-cyan/30 flex items-center justify-center mb-2">
+                    <i class="fa-solid fa-terminal text-2xl text-cyan"></i>
+                  </div>
+                  <h3 class="font-extrabold text-white text-sm tracking-wide">Maaz Usmani</h3>
+                  <span class="text-[10px] text-cyan font-mono mt-0.5">&lt;FullStack Engineer/&gt;</span>
                 </div>
+              </div>
+
+              <!-- Verified Badge -->
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan/15 border border-cyan/40 text-cyan text-[11px] font-mono font-semibold mb-3">
+                <i class="fa-solid fa-shield-halved text-[10px]"></i> Verified Full Stack Developer
+              </div>
+
+              <h2 class="text-2xl font-bold text-white tracking-wide">Maaz Usmani</h2>
+              <p class="text-xs font-mono text-cyan mt-1 mb-5">B.Tech Computer Science (2022–2026)</p>
             </div>
 
-            <div class="project-card">
-                <div class="project-info">
-                    <h3>Scientific Calculator</h3>
-                    <p class="tech-used">Python | Math Modules</p>
-                    <ul>
-                        <li>Created a versatile calculator supporting arithmetic and scientific operations.</li>
-                        <li>Used Python’s math library for precision in trigonometric and logarithmic calculations.</li>
-                    </ul>
-                    <a href="https://github.com/maaz-usmani-cse" class="project-link">View Source <i class="fa-brands fa-github"></i></a>
-                </div>
+            <!-- Profile Matrix Grid -->
+            <div class="grid grid-cols-2 gap-3 font-mono text-xs">
+              <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-500 block mb-1 uppercase tracking-wider">Location</span>
+                <span class="text-slate-200 font-semibold">Bhopal / Bihar</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-500 block mb-1 uppercase tracking-wider">Industrial Training</span>
+                <span class="text-purple-400 font-semibold">Cybrom Tech</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-500 block mb-1 uppercase tracking-wider">Coding Streak</span>
+                <span class="text-emerald font-semibold">60+ Days GitHub</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-500 block mb-1 uppercase tracking-wider">Practice Files</span>
+                <span class="text-cyan font-semibold flex items-center gap-1">
+                  100+ Solved
+                </span>
+              </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-info">
-                    <h3>Responsive Portfolio</h3>
-                    <p class="tech-used">HTML5 | CSS3 | UI Design</p>
-                    <ul>
-                        <li>Designed a multi-section portfolio for CSE 4th-year representation.</li>
-                        <li>Implemented responsive designs for mobile and desktop views.</li>
-                        <li>Custom styling with Neo-brutalism and clean typography.</li>
-                    </ul>
-                    <a href="#" class="project-link">Currently Viewing</a>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
-</section>
 
+      </div>
+    </section>
 
+    <!-- ABOUT SECTION -->
+    <section id="about" class="scroll-mt-28">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-cyan font-mono text-xs uppercase tracking-widest">[ OVERVIEW ]</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">About & Career Objective</h2>
+        <div class="w-16 h-1 bg-gradient-to-r from-cyan to-purple mx-auto mt-3 rounded-full"></div>
+      </div>
 
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Left Career Card -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-cyan/10 border border-cyan/30 flex items-center justify-center text-cyan text-lg">
+                <i class="fa-solid fa-crosshairs"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white">Career Objective</h3>
+            </div>
+            
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+              Computer Science professional with comprehensive training in <strong class="text-white">full-stack web development</strong> and hands-on experience building dynamic web applications. Possesses a solid foundation in backend development, relational database design, and end-to-end application flow, along with the ability to translate real-world requirements into clean, functional solutions.
+            </p>
+            <p class="text-slate-400 text-sm leading-relaxed mb-8">
+              Brings a problem-solving mindset, adaptability, and a strong commitment to continuous learning, seeking an entry-level software engineer role to contribute technical skills, learn from industry projects, and grow as a software engineer.
+            </p>
+          </div>
 
+          <!-- Strengths Trio -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-800">
+            <div class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-cyan mt-1 text-sm"></i>
+              <div>
+                <h4 class="text-xs font-bold text-white">Backend Flow</h4>
+                <p class="text-[11px] text-slate-400">Python, Django & DRF</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <i class="fa-solid fa-database text-purple-400 mt-1 text-sm"></i>
+              <div>
+                <h4 class="text-xs font-bold text-white">Database Design</h4>
+                <p class="text-[11px] text-slate-400">SQL, MySQL & Relations</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <i class="fa-solid fa-code text-emerald mt-1 text-sm"></i>
+              <div>
+                <h4 class="text-xs font-bold text-white">Modular Coding</h4>
+                <p class="text-[11px] text-slate-400">OOP & Clean Code</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <!-- Right Contact Specs Card -->
+        <div class="lg:col-span-5 glass-card rounded-2xl p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-xl bg-purple/10 border border-purple/30 flex items-center justify-center text-purple text-lg">
+                <i class="fa-solid fa-id-card"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white">Contact Specs</h3>
+            </div>
 
+            <div class="space-y-4">
+              <!-- Email Item -->
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 flex items-center gap-4 group hover:border-cyan transition-colors">
+                <div class="w-9 h-9 rounded-lg bg-cyan/10 text-cyan flex items-center justify-center text-base">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="overflow-hidden">
+                  <span class="text-[10px] text-slate-500 font-mono block uppercase">Email Address</span>
+                  <a href="mailto:maazusmani15@gmail.com" class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan transition-colors truncate block">
+                    maazusmani15@gmail.com
+                  </a>
+                </div>
+              </div>
 
+              <!-- Phone Item -->
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 flex items-center gap-4 group hover:border-emerald transition-colors">
+                <div class="w-9 h-9 rounded-lg bg-emerald/10 text-emerald flex items-center justify-center text-base">
+                  <i class="fa-solid fa-phone"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 font-mono block uppercase">Phone</span>
+                  <a href="tel:+917324886683" class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-emerald transition-colors">
+                    +91 7324886683
+                  </a>
+                </div>
+              </div>
 
-<section id="contact" class="contact-section">
-    <div class="container">
-        <h2 class="section-title">Get In Touch</h2>
-        <p class="section-subtitle">
-            I am actively seeking <strong>Entry-level Roles</strong> or <strong>Internships</strong> in Python & Web Development.
-        </p>
+              <!-- GitHub Repo Item -->
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 flex items-center gap-4 group hover:border-purple transition-colors">
+                <div class="w-9 h-9 rounded-lg bg-purple/10 text-purple-400 flex items-center justify-center text-base">
+                  <i class="fa-brands fa-github"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 font-mono block uppercase">GitHub Profile</span>
+                  <a href="https://github.com/maaz-usmani-cse" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-purple-400 transition-colors">
+                    github.com/maaz-usmani-cse
+                  </a>
+                </div>
+              </div>
 
-        <div class="contact-grid">
-            <a href="mailto:maazusmani15@gmail.com" class="contact-card">
-                <i class="fas fa-envelope"></i>
-                <h3>Email</h3>
-                <p>maazusmani15@gmail.com</p>
+              <!-- LinkedIn Item -->
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 flex items-center gap-4 group hover:border-cyan transition-colors">
+                <div class="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-base">
+                  <i class="fa-brands fa-linkedin-in"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 font-mono block uppercase">LinkedIn Profile</span>
+                  <a href="https://linkedin.com/in/maaz-usmani-cse" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan transition-colors">
+                    linkedin.com/in/maaz-usmani-cse
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#contact" class="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-cyan/20 to-purple/20 border border-cyan/40 text-cyan hover:bg-cyan hover:text-black font-semibold text-xs tracking-wider uppercase text-center transition-all flex items-center justify-center gap-2">
+            <i class="fa-solid fa-address-book"></i> Full Contact Info
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" class="scroll-mt-28">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-purple-400 font-mono text-xs uppercase tracking-widest">[ INDUSTRY PRACTICE ]</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">Professional Training & Experience</h2>
+        <p class="text-slate-400 text-sm mt-2">Hands-on industrial development experience in Python full-stack engineering</p>
+        <div class="w-16 h-1 bg-gradient-to-r from-purple to-cyan mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <div class="max-w-4xl mx-auto glass-card rounded-2xl p-8 border border-purple/30">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+          <div>
+            <span class="px-3 py-1 rounded-full bg-purple/10 border border-purple/30 text-purple-400 text-xs font-mono">
+              Industrial Training
+            </span>
+            <h3 class="text-2xl font-bold text-white mt-2">Full-Stack Web Development Trainee</h3>
+            <p class="text-cyan text-sm font-mono">Cybrom Technology, Bhopal</p>
+          </div>
+          <div>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 text-xs font-mono border border-slate-700">
+              Dec 2025 – Jun 2026
+            </span>
+          </div>
+        </div>
+
+        <ul class="space-y-3 text-slate-300 text-sm leading-relaxed mb-6 list-disc list-inside">
+          <li>Completed intensive industrial training focused on full-stack application development using Python and Django.</li>
+          <li>Gained practical experience in backend development, database management, CRUD operations, user authentication, and frontend integration.</li>
+          <li>Developed a strong understanding of application architecture, modular development practices, and real-world project implementation.</li>
+        </ul>
+
+        <div class="border-t border-slate-800 pt-4 flex flex-wrap gap-2 text-xs font-mono text-slate-300">
+          <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Python</span>
+          <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Django</span>
+          <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">CRUD Operations</span>
+          <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">User Auth</span>
+          <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">MySQL</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SHOWCASE SECTION (StudyBridge is First Box) -->
+    <section id="projects" class="scroll-mt-28">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-emerald font-mono text-xs uppercase tracking-widest">[ Featured Work ]</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">Full-Stack Projects</h2>
+        <p class="text-slate-400 text-sm mt-2">End-to-end Python & Django applications, database workflows, and cryptographic utilities</p>
+        <div class="w-16 h-1 bg-gradient-to-r from-emerald to-cyan mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- PROJECT 1: StudyBridge (FIRST BOX) -->
+        <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-3 py-1 rounded-full bg-emerald/10 border border-emerald/30 text-emerald text-xs font-mono flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald animate-pulse"></span> Live on Render
+              </span>
+              <div class="flex items-center gap-2">
+                <a href="https://github.com/maaz-usmani-cse/StudyBridge.git" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-emerald hover:text-black flex items-center justify-center transition-colors" title="GitHub Repository">
+                  <i class="fa-brands fa-github text-sm"></i>
+                </a>
+                <a href="https://studybridge-ryew.onrender.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-emerald/20 text-emerald hover:bg-emerald hover:text-black flex items-center justify-center transition-colors" title="Live Website">
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+              </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white group-hover:text-emerald transition-colors mb-2">
+              StudyBridge — Full-Stack EdTech Platform
+            </h3>
+
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Developed a web application for tutor-student interaction with role-based registration and dashboard access. Built dynamic forms and personalized student dashboards to manage schedules, batch-specific information, and an interactive notice broadcast board.
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 mb-6">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <p class="text-[10px] text-slate-500 font-mono uppercase">Key Architecture</p>
+                <p class="text-xs font-bold text-emerald font-mono">Tutor-Student RBAC</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <p class="text-[10px] text-slate-500 font-mono uppercase">Relational Schema</p>
+                <p class="text-xs font-bold text-cyan font-mono">Foreign Keys & Joins</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-slate-800 pt-4">
+            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-slate-300 mb-4">
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Python</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Django</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">SQL/MySQL</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">JavaScript</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Bootstrap</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">HTML5/CSS3</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <a href="https://studybridge-ryew.onrender.com" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald to-teal-500 text-black font-bold text-xs font-mono text-center hover:opacity-90 transition-all flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-globe"></i> Live Demo
+              </a>
+              <a href="https://github.com/maaz-usmani-cse/StudyBridge.git" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono text-center transition-all flex items-center justify-center gap-1.5">
+                <i class="fa-brands fa-github"></i> GitHub Repo
+              </a>
+            </div>
+
+            <button onclick="openModal('studybridge')" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-emerald hover:text-slate-950 text-emerald font-semibold text-xs transition-all flex items-center justify-center gap-2 border border-emerald/30">
+              <i class="fa-solid fa-circle-info"></i> View Detailed Breakdown
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJECT 2: Doctor Appointment Booking System -->
+        <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-3 py-1 rounded-full bg-cyan/10 border border-cyan/30 text-cyan text-xs font-mono flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-cyan animate-pulse"></span> Live on Render
+              </span>
+              <div class="flex items-center gap-2">
+                <a href="https://github.com/maaz-usmani-cse/Doctor-Appointment-Booking-System.git" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan hover:text-black flex items-center justify-center transition-colors" title="GitHub Repository">
+                  <i class="fa-brands fa-github text-sm"></i>
+                </a>
+                <a href="https://doctor-appointment-booking-system-09y2.onrender.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-cyan/20 text-cyan hover:bg-cyan hover:text-black flex items-center justify-center transition-colors" title="Live Website">
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+              </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white group-hover:text-cyan transition-colors mb-2">
+              Doctor Appointment Booking System
+            </h3>
+
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Online healthcare consultation and appointment management application. Facilitates patient registration, doctor profile and specialty browsing, appointment booking slot allocation, and cancellation tracking.
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 mb-6">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <p class="text-[10px] text-slate-500 font-mono uppercase">Database Logic</p>
+                <p class="text-xs font-bold text-cyan font-mono">Slot Conflict Validation</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <p class="text-[10px] text-slate-500 font-mono uppercase">User Modules</p>
+                <p class="text-xs font-bold text-emerald font-mono">Patient & Doctor Portals</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-slate-800 pt-4">
+            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-slate-300 mb-4">
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Python</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Django</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">MySQL</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">HTML5/CSS3</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">JavaScript</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <a href="https://doctor-appointment-booking-system-09y2.onrender.com" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan to-blue-500 text-black font-bold text-xs font-mono text-center hover:opacity-90 transition-all flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-globe"></i> Live Demo
+              </a>
+              <a href="https://github.com/maaz-usmani-cse/Doctor-Appointment-Booking-System.git" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono text-center transition-all flex items-center justify-center gap-1.5">
+                <i class="fa-brands fa-github"></i> GitHub Repo
+              </a>
+            </div>
+
+            <button onclick="openModal('doctor')" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-cyan hover:text-slate-950 text-cyan font-semibold text-xs transition-all flex items-center justify-center gap-2 border border-cyan/30">
+              <i class="fa-solid fa-circle-info"></i> View Detailed Breakdown
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJECT 3: Semester Registration System -->
+        <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-3 py-1 rounded-full bg-emerald/10 border border-emerald/30 text-emerald text-xs font-mono flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald animate-pulse"></span> Live on Render
+              </span>
+              <div class="flex items-center gap-2">
+                <a href="https://github.com/maaz-usmani-cse/semester-registration-system.git" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-emerald hover:text-black flex items-center justify-center transition-colors" title="GitHub Repository">
+                  <i class="fa-brands fa-github text-sm"></i>
+                </a>
+                <a href="https://semester-registration-system.onrender.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-emerald/20 text-emerald hover:bg-emerald hover:text-black flex items-center justify-center transition-colors" title="Live Website">
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+              </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white group-hover:text-emerald transition-colors mb-2">
+              Semester Registration System
+            </h3>
+
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Complete student exam portal with user registration, secure session authentication, and semester examination form submission. Features end-to-end CRUD capability allowing students to submit, review, edit, and manage their registration records in real-time.
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 mb-6">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <p class="text-[10px] text-slate-500 font-mono uppercase">Core Functionality</p>
+                <p class="text-xs font-bold text-emerald font-mono">Full CRUD & Form Validations</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <p class="text-[10px] text-slate-500 font-mono uppercase">Security</p>
+                <p class="text-xs font-bold text-cyan font-mono">Role-Based Student Auth</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-slate-800 pt-4">
+            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-slate-300 mb-4">
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Python</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Django</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">SQLite/MySQL</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">JavaScript</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Bootstrap</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">HTML5/CSS3</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <a href="https://semester-registration-system.onrender.com" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald to-teal-500 text-black font-bold text-xs font-mono text-center hover:opacity-90 transition-all flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-globe"></i> Live Demo
+              </a>
+              <a href="https://github.com/maaz-usmani-cse/semester-registration-system.git" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono text-center transition-all flex items-center justify-center gap-1.5">
+                <i class="fa-brands fa-github"></i> GitHub Repo
+              </a>
+            </div>
+
+            <button onclick="openModal('semester')" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-emerald hover:text-slate-950 text-emerald font-semibold text-xs transition-all flex items-center justify-center gap-2 border border-emerald/30">
+              <i class="fa-solid fa-circle-info"></i> View Detailed Breakdown
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJECT 4: SecureShift (Encrypt & Decrypt) -->
+        <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-3 py-1 rounded-full bg-cyan/10 border border-cyan/30 text-cyan text-xs font-mono flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-cyan animate-pulse"></span> Live on Render
+              </span>
+              <div class="flex items-center gap-2">
+                <a href="https://github.com/maaz-usmani-cse/SecureShift.git" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan hover:text-black flex items-center justify-center transition-colors" title="GitHub Repository">
+                  <i class="fa-brands fa-github text-sm"></i>
+                </a>
+                <a href="https://secureshift-lf91.onrender.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-cyan/20 text-cyan hover:bg-cyan hover:text-black flex items-center justify-center transition-colors" title="Live Website">
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+              </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white group-hover:text-cyan transition-colors mb-2">
+              SecureShift (Encrypt & Decrypt)
+            </h3>
+
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Cryptographic transformation web application built on Python and Django implementing Caesar Cipher shift algorithms. Allows users to encrypt sensitive text by dynamically offsetting characters and decrypt ciphertexts back into plain text with real-time UI interaction.
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 mb-6">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <p class="text-[10px] text-slate-500 font-mono uppercase">Algorithm</p>
+                <p class="text-xs font-bold text-cyan font-mono">Caesar Shift Mechanics</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <p class="text-[10px] text-slate-500 font-mono uppercase">Functionality</p>
+                <p class="text-xs font-bold text-purple-400 font-mono">Bi-Directional Cryptography</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-slate-800 pt-4">
+            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-slate-300 mb-4">
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Python</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Django</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">Cryptography</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">HTML5/CSS3</span>
+              <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700">JavaScript</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <a href="https://secureshift-lf91.onrender.com" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan to-blue-500 text-black font-bold text-xs font-mono text-center hover:opacity-90 transition-all flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-globe"></i> Live Demo
+              </a>
+              <a href="https://github.com/maaz-usmani-cse/SecureShift.git" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono text-center transition-all flex items-center justify-center gap-1.5">
+                <i class="fa-brands fa-github"></i> GitHub Repo
+              </a>
+            </div>
+
+            <button onclick="openModal('secureshift')" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-cyan hover:text-slate-950 text-cyan font-semibold text-xs transition-all flex items-center justify-center gap-2 border border-cyan/30">
+              <i class="fa-solid fa-circle-info"></i> View Detailed Breakdown
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS MATRIX SECTION -->
+    <section id="skills" class="scroll-mt-28">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-purple-400 font-mono text-xs uppercase tracking-widest">[ CORE COMPETENCIES ]</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">Skills & Technical Matrix</h2>
+        <p class="text-slate-400 text-sm mt-2">Languages, frameworks, databases, and engineering competencies from updated resume</p>
+        <div class="w-16 h-1 bg-gradient-to-r from-purple to-cyan mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left: Technical Proficiency Bars -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-8 space-y-5">
+          <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-code text-cyan"></i> Technical Proficiency
+          </h3>
+
+          <div class="space-y-5 font-mono text-xs">
+            
+            <div>
+              <div class="flex justify-between mb-1.5">
+                <span class="text-slate-200">Python (OOP, Backend architecture, Modules)</span>
+                <span class="text-cyan font-bold">92%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800/90 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-cyan to-blue-500 rounded-full" style="width: 92%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1.5">
+                <span class="text-slate-200">Frameworks: Django & Django REST Framework (DRF)</span>
+                <span class="text-purple-400 font-bold">90%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800/90 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-purple to-pink-500 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1.5">
+                <span class="text-slate-200">Databases: SQL & MySQL (Queries, Joins, Relational Design)</span>
+                <span class="text-emerald font-bold">88%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800/90 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-emerald to-teal-400 rounded-full" style="width: 88%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1.5">
+                <span class="text-slate-200">Frontend: JavaScript, React.js & Responsive Web Design</span>
+                <span class="text-yellow-400 font-bold">85%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800/90 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full" style="width: 85%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1.5">
+                <span class="text-slate-200">Core Concepts: OOP, DBMS, Data Structures & API Integration</span>
+                <span class="text-cyan font-bold">90%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800/90 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-cyan to-emerald rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1.5">
+                <span class="text-slate-200">Tools: Git, GitHub, VS Code, Figma</span>
+                <span class="text-purple-400 font-bold">88%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800/90 overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-purple to-indigo-500 rounded-full" style="width: 88%"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right: Core Strengths & Soft Skills -->
+        <div class="lg:col-span-5 glass-card rounded-2xl p-8 space-y-6 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+              <i class="fa-solid fa-brain text-purple-400"></i> Engineering & Soft Skills
+            </h3>
+
+            <div class="grid grid-cols-2 gap-3.5 text-center">
+              
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-cyan transition-colors">
+                <i class="fa-solid fa-puzzle-piece text-cyan text-2xl mb-2"></i>
+                <h4 class="text-xs font-bold text-slate-200">Problem Solving</h4>
+                <p class="text-[10px] text-slate-400 mt-1">100+ Practice Files</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-purple-400 transition-colors">
+                <i class="fa-solid fa-people-group text-purple-400 text-2xl mb-2"></i>
+                <h4 class="text-xs font-bold text-slate-200">Team Work</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Git Workflows & Sync</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-emerald transition-colors">
+                <i class="fa-solid fa-clock text-emerald text-2xl mb-2"></i>
+                <h4 class="text-xs font-bold text-slate-200">Time Management</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Task Prioritization</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-yellow-400 transition-colors">
+                <i class="fa-solid fa-bug text-yellow-400 text-2xl mb-2"></i>
+                <h4 class="text-xs font-bold text-slate-200">Debugging</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Troubleshooting</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-cyan transition-colors">
+                <i class="fa-solid fa-wand-magic-sparkles text-cyan text-2xl mb-2"></i>
+                <h4 class="text-xs font-bold text-slate-200">Code Optimization</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Clean & Modular</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-purple-400 transition-colors">
+                <i class="fa-solid fa-plane-departure text-purple-400 text-2xl mb-2"></i>
+                <h4 class="text-xs font-bold text-slate-200">Interpersonal Comm.</h4>
+                <p class="text-[10px] text-slate-400 mt-1">Collaboration Mindset</p>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300 leading-relaxed italic flex items-center gap-3">
+            <i class="fa-solid fa-quote-left text-cyan text-xl"></i>
+            <span>Maintains a 60+ day GitHub coding streak with regular Python and project-based commits, backed by 100+ logic-building practice problems.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="scroll-mt-28">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-emerald font-mono text-xs uppercase tracking-widest">[ ACADEMIC BACKGROUND ]</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">Educational Qualification</h2>
+        <div class="w-16 h-1 bg-gradient-to-r from-emerald to-cyan mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <div class="relative border-l-2 border-slate-800 max-w-4xl mx-auto pl-6 sm:pl-10 space-y-10">
+        
+        <!-- Timeline Item 1: B.Tech -->
+        <div class="relative group">
+          <div class="absolute -left-[33px] sm:-left-[49px] top-1.5 w-6 h-6 rounded-full bg-slate-900 border-2 border-cyan flex items-center justify-center text-cyan text-xs group-hover:scale-125 group-hover:bg-cyan group-hover:text-black transition-all">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6 sm:p-8">
+            <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+              <div>
+                <h3 class="text-xl font-bold text-white group-hover:text-cyan transition-colors">
+                  B.Tech – Computer Science Engineering
+                </h3>
+                <p class="text-xs font-mono text-cyan mt-1">
+                  Radharaman Institute of Technology and Science, Bhopal
+                </p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-cyan/10 border border-cyan/30 text-cyan text-xs font-mono">
+                2022 – 2026
+              </span>
+            </div>
+
+            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+              Undergraduate program emphasizing core computer science fundamentals: Object-Oriented Programming, Database Management Systems (DBMS), Data Structures, Algorithms, Computer Networks, and Software Engineering.
+            </p>
+
+            <div class="mt-4 pt-4 border-t border-slate-800 flex items-center justify-between font-mono text-xs">
+              <span class="text-slate-400">Program Status:</span>
+              <span class="text-emerald font-bold">Currently in Final Year (Scholar)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Item 2: Class 12 -->
+        <div class="relative group">
+          <div class="absolute -left-[33px] sm:-left-[49px] top-1.5 w-6 h-6 rounded-full bg-slate-900 border-2 border-purple-400 flex items-center justify-center text-purple-400 text-xs group-hover:scale-125 group-hover:bg-purple-400 group-hover:text-black transition-all">
+            <i class="fa-solid fa-school"></i>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6 sm:p-8">
+            <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+              <div>
+                <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                  Higher Secondary Education (Class 12)
+                </h3>
+                <p class="text-xs font-mono text-purple-400 mt-1">
+                  Bihar School Examination Board (BSEB)
+                </p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-purple/10 border border-purple/30 text-purple-400 text-xs font-mono">
+                2018 – 2020
+              </span>
+            </div>
+
+            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+              Completed intermediate senior secondary education focusing on Science stream (Physics, Chemistry, Mathematics), reinforcing mathematical foundation and logical reasoning.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 3: Class 10 -->
+        <div class="relative group">
+          <div class="absolute -left-[33px] sm:-left-[49px] top-1.5 w-6 h-6 rounded-full bg-slate-900 border-2 border-emerald flex items-center justify-center text-emerald text-xs group-hover:scale-125 group-hover:bg-emerald group-hover:text-black transition-all">
+            <i class="fa-solid fa-book"></i>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6 sm:p-8">
+            <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+              <div>
+                <h3 class="text-xl font-bold text-white group-hover:text-emerald transition-colors">
+                  Secondary Education (Class 10)
+                </h3>
+                <p class="text-xs font-mono text-emerald mt-1">
+                  Bihar School Examination Board (BSEB)
+                </p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald/10 border border-emerald/30 text-emerald text-xs font-mono">
+                2017 – 2018
+              </span>
+            </div>
+
+            <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+              Completed matriculation high school education with distinction in General Sciences and Mathematics.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TERMINAL SECTION -->
+    <section id="terminal" class="scroll-mt-28">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-cyan font-mono text-xs uppercase tracking-widest">[ Interactive Shell ]</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">Developer CLI Terminal</h2>
+        <p class="text-slate-400 text-sm mt-1">Execute live commands to query candidate records directly</p>
+        <div class="w-16 h-1 bg-gradient-to-r from-cyan to-emerald mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <div class="max-w-4xl mx-auto glass-card rounded-2xl overflow-hidden shadow-2xl border border-slate-700/60 font-mono text-xs">
+        
+        <!-- Terminal Header -->
+        <div class="bg-slate-900 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            <span class="text-slate-400 text-[11px] ml-2">maaz@developer-node:~</span>
+          </div>
+          <span class="text-slate-500 text-[11px]">bash v5.2.1</span>
+        </div>
+
+        <!-- Terminal Output Screen -->
+        <div id="terminal-body" class="p-6 h-72 overflow-y-auto space-y-2.5 bg-slate-950/90 text-slate-300">
+          <p class="text-cyan font-semibold">&gt; Welcome to Maaz Usmani's Interactive Terminal [Version 2026.1]</p>
+          <p class="text-slate-400">Type <span class="text-emerald font-bold">'help'</span> to see available commands.</p>
+        </div>
+
+        <!-- Terminal Input Form -->
+        <form id="terminal-form" class="bg-slate-900/90 px-4 py-3 flex items-center gap-2 border-t border-slate-800">
+          <span class="text-emerald font-bold">➜</span>
+          <input type="text" id="terminal-input" autocomplete="off" placeholder="type 'help', 'skills', 'projects', 'training', 'contact'..." class="w-full bg-transparent text-cyan border-none focus:outline-none font-mono text-xs">
+          <button type="submit" class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-mono">
+            Execute
+          </button>
+        </form>
+
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="scroll-mt-28">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-purple-400 font-mono text-xs uppercase tracking-widest">[ CONNECT ]</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">Get In Touch</h2>
+        <p class="text-slate-400 text-sm mt-1">Open for Python Developer, Full-Stack & Software Engineering Roles</p>
+        <div class="w-16 h-1 bg-gradient-to-r from-purple to-cyan mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Direct Channels -->
+        <div class="lg:col-span-5 glass-card rounded-2xl p-8 space-y-5">
+          <h3 class="text-xl font-bold text-white mb-2">Direct Channels</h3>
+          
+          <div class="space-y-3.5">
+            <!-- Email -->
+            <a href="mailto:maazusmani15@gmail.com" class="flex items-center gap-4 p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-cyan transition-colors group">
+              <div class="w-11 h-11 rounded-xl bg-cyan/10 border border-cyan/30 text-cyan flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div class="overflow-hidden">
+                <p class="text-[10px] font-mono text-slate-500 uppercase">Email Address</p>
+                <p class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan transition-colors truncate">
+                  maazusmani15@gmail.com
+                </p>
+              </div>
             </a>
 
-            <a href="https://www.linkedin.com/in/maaz-usmani-cse/" target="_blank" class="contact-card">
-                <i class="fab fa-linkedin"></i>
-                <h3>LinkedIn</h3>
-                <p>Let's connect professionally</p>
+            <!-- Phone -->
+            <a href="tel:+917324886683" class="flex items-center gap-4 p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-emerald transition-colors group">
+              <div class="w-11 h-11 rounded-xl bg-emerald/10 border border-emerald/30 text-emerald flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div>
+                <p class="text-[10px] font-mono text-slate-500 uppercase">Phone Number</p>
+                <p class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-emerald transition-colors">
+                  +91 7324886683
+                </p>
+              </div>
             </a>
 
-            <a href="https://github.com/maaz-usmani-cse" target="_blank" class="contact-card">
-                <i class="fab fa-github"></i>
-                <h3>GitHub</h3>
-                <p>Check my Python & SQL Logic</p>
+            <!-- GitHub -->
+            <a href="https://github.com/maaz-usmani-cse" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-purple-400 transition-colors group">
+              <div class="w-11 h-11 rounded-xl bg-purple/10 border border-purple/30 text-purple-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div class="overflow-hidden">
+                <p class="text-[10px] font-mono text-slate-500 uppercase">GitHub Repository</p>
+                <p class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-purple-400 transition-colors truncate">
+                  github.com/maaz-usmani-cse
+                </p>
+              </div>
             </a>
-        </div>
-    </div>
-</section>
 
-<footer class="main-footer">
-    <div class="footer-content">
-        <p class="footer-name">Designed & Developed by <strong>Maaz Usmani</strong></p>
-        <p class="footer-info">Based in <strong>Bhopal</strong> | Originally from <strong>Bihar</strong></p>
-        <p class="footer-college">4th Year CSE Student @ <strong>RITS, Bhopal (RGPV)</strong></p>
-        <div class="footer-bottom">
-            <span>&copy; 2026 Maaz Usmani. All Rights Reserved.</span>
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com/in/maaz-usmani-cse" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-cyan transition-colors group">
+              <div class="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </div>
+              <div class="overflow-hidden">
+                <p class="text-[10px] font-mono text-slate-500 uppercase">LinkedIn Profile</p>
+                <p class="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan transition-colors truncate">
+                  linkedin.com/in/maaz-usmani-cse
+                </p>
+              </div>
+            </a>
+          </div>
         </div>
+
+        <!-- Right: Contact Form -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-8">
+          <form id="contact-form" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] font-mono text-slate-400 uppercase mb-2">Your Name</label>
+                <input type="text" id="form-name" required placeholder="Recruiter / Engineer Name" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 text-sm focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all">
+              </div>
+              <div>
+                <label class="block text-[11px] font-mono text-slate-400 uppercase mb-2">Your Email</label>
+                <input type="email" id="form-email" required placeholder="recruiter@company.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 text-sm focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 uppercase mb-2">Subject</label>
+              <input type="text" id="form-subject" required placeholder="Software Engineer / Python Developer Opportunity" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 text-sm focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all">
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 uppercase mb-2">Message</label>
+              <textarea id="form-message" rows="4" required placeholder="Hi Maaz, we reviewed your projects and would like to discuss an opportunity..." class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 text-sm focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all resize-none"></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan via-purple to-pink-500 text-white font-bold text-sm tracking-wider uppercase shadow-lg hover:shadow-[0_0_25px_rgba(0,242,254,0.4)] transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> Send Message
+            </button>
+
+            <!-- Status message container -->
+            <p id="form-status" class="hidden text-center text-xs font-mono pt-2"></p>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-800/80 bg-[#070913]/90 relative z-10 py-10 text-center font-mono text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-cyan"></span>
+        <span class="text-slate-300 font-bold">Maaz Usmani</span> — Python Full-Stack Developer
+      </div>
+      <p>© 2026 Maaz Usmani. Built with Three.js & Tailwind CSS.</p>
+      <div class="flex gap-4 text-base">
+        <a href="https://github.com/maaz-usmani-cse" target="_blank" class="hover:text-cyan transition-colors"><i class="fa-brands fa-github"></i></a>
+        <a href="https://linkedin.com/in/maaz-usmani-cse" target="_blank" class="hover:text-blue-400 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:maazusmani15@gmail.com" class="hover:text-emerald transition-colors"><i class="fa-solid fa-envelope"></i></a>
+        <a href="tel:+917324886683" class="hover:text-purple-400 transition-colors"><i class="fa-solid fa-phone"></i></a>
+      </div>
     </div>
-</footer>
+  </footer>
+
+  <div id="project-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md items-center justify-center p-4">
+    <div class="glass-card max-w-2xl w-full rounded-2xl p-6 sm:p-8 border border-cyan/40 relative">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="modal-content">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let scene, camera, renderer;
+    let shapes = [];
+
+    function initThree() {
+      const canvas = document.getElementById('webgl-container');
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 25;
+
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Geometry 1: Cyan Wireframe Icosahedron
+      const icoGeo = new THREE.IcosahedronGeometry(4.2, 1);
+      const icoMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, wireframe: true, transparent: true, opacity: 0.25 });
+      const icoMesh = new THREE.Mesh(icoGeo, icoMat);
+      icoMesh.position.set(-18, 8, -5);
+      scene.add(icoMesh);
+      shapes.push({ mesh: icoMesh, rotX: 0.003, rotY: 0.005 });
+
+      // Geometry 2: Purple Wireframe Torus
+      const torusGeo = new THREE.TorusGeometry(3.5, 1.1, 16, 50);
+      const torusMat = new THREE.MeshBasicMaterial({ color: 0xa855f7, wireframe: true, transparent: true, opacity: 0.22 });
+      const torusMesh = new THREE.Mesh(torusGeo, torusMat);
+      torusMesh.position.set(16, -6, -8);
+      scene.add(torusMesh);
+      shapes.push({ mesh: torusMesh, rotX: 0.004, rotY: 0.003 });
+
+      // Geometry 3: Emerald Octahedron
+      const octGeo = new THREE.OctahedronGeometry(3.2, 0);
+      const octMat = new THREE.MeshBasicMaterial({ color: 0x00f5d4, wireframe: true, transparent: true, opacity: 0.2 });
+      const octMesh = new THREE.Mesh(octGeo, octMat);
+      octMesh.position.set(12, 10, -6);
+      scene.add(octMesh);
+      shapes.push({ mesh: octMesh, rotX: 0.005, rotY: 0.004 });
+
+      // Particle Field
+      const particleCount = 200;
+      const partGeo = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+
+      const colorPalette = [
+        new THREE.Color('#00f2fe'),
+        new THREE.Color('#7f00ff'),
+        new THREE.Color('#00f5d4')
+      ];
+
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 60;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 60;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+
+        const col = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        colors[i * 3] = col.r;
+        colors[i * 3 + 1] = col.g;
+        colors[i * 3 + 2] = col.b;
+      }
+
+      partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      partGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const partMat = new THREE.PointsMaterial({
+        size: 0.25,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.7
+      });
+
+      const particleSystem = new THREE.Points(partGeo, partMat);
+      scene.add(particleSystem);
+      shapes.push({ mesh: particleSystem, rotX: 0.0004, rotY: 0.0006 });
+
+      window.addEventListener('resize', onWindowResize);
+    }
+
+    function onWindowResize() {
+      if (!camera || !renderer) return;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function animateThree() {
+      requestAnimationFrame(animateThree);
+      shapes.forEach(s => {
+        if (s.mesh) {
+          s.mesh.rotation.x += s.rotX;
+          s.mesh.rotation.y += s.rotY;
+        }
+      });
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('load', () => {
+      initThree();
+      animateThree();
+    });
+  </script>
+
+  <script>
+    // Cursor glow follow
+    const glow = document.getElementById('cursor-glow');
+    window.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    // Scroll Progress bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scroll-progress').style.width = scrolled + '%';
+    });
+
+    // Typewriter Text Logic
+    const words = [
+      "Python Full Stack Developer",
+      "Django & DRF Architecture",
+      "MySQL Database Engineer",
+      "Software Systems Engineer"
+    ];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typewriterEl = document.getElementById('typewriter');
+
+    function typeEffect() {
+      const currentWord = words[wordIndex];
+      if (isDeleting) {
+        typewriterEl.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typewriterEl.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let speed = isDeleting ? 40 : 90;
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        speed = 1800; // Pause at end of word
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        speed = 400;
+      }
+
+      setTimeout(typeEffect, speed);
+    }
+    typeEffect();
+
+    // Mobile Navbar Toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Project Modals Data (Updated with StudyBridge First & Doctor Appointment Deployed)
+    const projectBreakdowns = {
+      studybridge: {
+        title: "StudyBridge — Full-Stack EdTech Platform",
+        badge: "Live Deployed Project (Render)",
+        desc: "A web application engineered for tutor-student interaction with role-based registration, dashboard access, and customized academic management.",
+        liveUrl: "https://studybridge-ryew.onrender.com",
+        repoUrl: "https://github.com/maaz-usmani-cse/StudyBridge.git",
+        stack: ["Python", "Django", "SQL", "JavaScript", "Bootstrap", "HTML5/CSS3"],
+        points: [
+          "Developed role-based access control (RBAC) separating tutor capabilities from student views.",
+          "Constructed dynamic forms and personalized student dashboards to track schedules and batch-specific data.",
+          "Designed a normalized relational database schema utilizing complex SQL queries, table joins, and foreign key relationships.",
+          "Integrated an instant notice board module for broadcasting real-time academic announcements.",
+          "Delivered responsive mobile-first UI ensuring clean cross-device usability."
+        ]
+      },
+      doctor: {
+        title: "Doctor Appointment Booking System",
+        badge: "Live Deployed Project (Render)",
+        desc: "A healthcare scheduling portal designed to streamline doctor appointment booking, patient registrations, slot allocations, and appointment tracking.",
+        liveUrl: "https://doctor-appointment-booking-system-09y2.onrender.com",
+        repoUrl: "https://github.com/maaz-usmani-cse/Doctor-Appointment-Booking-System.git",
+        stack: ["Python", "Django", "MySQL", "HTML5", "CSS3", "JavaScript"],
+        points: [
+          "Designed patient and doctor workflows with status updates for appointments.",
+          "Constructed schedule conflict management logic to ensure slots are not double-booked.",
+          "Normalized relational database tables connecting doctor specialization with patient bookings.",
+          "Responsive appointment overview dashboard with cancellation mechanisms."
+        ]
+      },
+      semester: {
+        title: "Semester Registration System",
+        badge: "Live Deployed Project (Render)",
+        desc: "A comprehensive student exam portal built with Python and Django. Manages student login/signup sessions, exam form submissions, registration records, and complete CRUD functionality with form validation.",
+        liveUrl: "https://semester-registration-system.onrender.com",
+        repoUrl: "https://github.com/maaz-usmani-cse/semester-registration-system.git",
+        stack: ["Python", "Django", "SQLite/MySQL", "HTML5", "CSS3", "JavaScript", "Bootstrap"],
+        points: [
+          "Engineered user authentication with role validation for students to securely access semester services.",
+          "Implemented full CRUD operations enabling students to submit exam forms, review submitted details, edit errors, and update their registration records.",
+          "Designed structured database tables maintaining foreign key mapping between student details, semester semesters, and subjects.",
+          "Configured form validations to prevent empty submissions and invalid inputs.",
+          "Successfully deployed live on Render cloud infrastructure."
+        ]
+      },
+      secureshift: {
+        title: "SecureShift (Encrypt & Decrypt)",
+        badge: "Live Deployed Project (Render)",
+        desc: "An algorithmic cryptographic web application built with Python and Django. Implements shift cipher mechanics to encode messages with customizable shift offsets and decrypt ciphertexts seamlessly.",
+        liveUrl: "https://secureshift-lf91.onrender.com",
+        repoUrl: "https://github.com/maaz-usmani-cse/SecureShift.git",
+        stack: ["Python", "Django", "Cryptography Logic", "HTML5", "CSS3", "JavaScript"],
+        points: [
+          "Developed Caesar shift algorithmic transformation logic in pure Python backend.",
+          "Constructed intuitive dual-action interface for instantaneous message encryption and decryption.",
+          "Handled character boundary wrapping, punctuation persistence, and case-sensitive shifts.",
+          "Successfully deployed and tested live on Render."
+        ]
+      }
+    };
+
+    function openModal(key) {
+      const data = projectBreakdowns[key];
+      if (!data) return;
+
+      const container = document.getElementById('modal-content');
+      container.innerHTML = `
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <span class="px-3 py-1 rounded-full bg-cyan/10 border border-cyan/30 text-cyan text-xs font-mono font-semibold">${data.badge}</span>
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-2">${data.title}</h3>
+        <p class="text-slate-300 text-sm leading-relaxed mb-6">${data.desc}</p>
+        
+        <h4 class="text-xs font-mono uppercase text-slate-400 mb-2">Core Engineering Deliverables:</h4>
+        <ul class="space-y-2 mb-6">
+          ${data.points.map(pt => `<li class="flex items-start gap-2 text-xs text-slate-300"><i class="fa-solid fa-circle-check text-emerald mt-0.5"></i> <span>${pt}</span></li>`).join('')}
+        </ul>
+
+        <h4 class="text-xs font-mono uppercase text-slate-400 mb-2">Technology Stack:</h4>
+        <div class="flex flex-wrap gap-2 mb-6">
+          ${data.stack.map(st => `<span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-xs font-mono text-cyan">${st}</span>`).join('')}
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-slate-800">
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono">Close</button>
+          <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs font-mono flex items-center gap-1.5"><i class="fa-brands fa-github"></i> GitHub</a>
+          ${data.liveUrl ? `<a href="${data.liveUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald text-black font-bold text-xs font-mono hover:opacity-90 flex items-center gap-1.5"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>` : ''}
+        </div>
+      `;
+
+      document.getElementById('project-modal').classList.add('modal-active');
+    }
+
+    function closeModal() {
+      document.getElementById('project-modal').classList.remove('modal-active');
+    }
+
+    // CLI Terminal Execution Logic
+    const termForm = document.getElementById('terminal-form');
+    const termInput = document.getElementById('terminal-input');
+    const termBody = document.getElementById('terminal-body');
+
+    termForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = termInput.value.trim().toLowerCase();
+      if (!val) return;
+
+      const cmdEcho = document.createElement('div');
+      cmdEcho.innerHTML = `<span class="text-emerald font-bold">➜</span> <span class="text-white">${val}</span>`;
+      termBody.appendChild(cmdEcho);
+
+      const resp = document.createElement('div');
+      resp.className = 'pl-4 text-xs font-mono';
+
+      switch (val) {
+        case 'help':
+          resp.innerHTML = `
+            <p class="text-slate-300">Available commands:</p>
+            <p class="text-cyan"><span class="text-white">bio</span> - Synopsis and objective</p>
+            <p class="text-cyan"><span class="text-white">skills</span> - List primary languages, frameworks & databases</p>
+            <p class="text-cyan"><span class="text-white">training</span> - Professional experience @ Cybrom Tech</p>
+            <p class="text-cyan"><span class="text-white">projects</span> - View featured 4 projects with live URLs</p>
+            <p class="text-cyan"><span class="text-white">education</span> - Academic background and university details</p>
+            <p class="text-cyan"><span class="text-white">contact</span> - Phone, Email, GitHub, LinkedIn</p>
+            <p class="text-cyan"><span class="text-white">clear</span> - Clear terminal buffer</p>
+          `;
+          break;
+        case 'bio':
+          resp.innerHTML = `<span class="text-slate-300">Maaz Usmani is a Python Full-Stack Developer with practical experience in Django, relational database design (SQL/MySQL), and responsive frontend development.</span>`;
+          break;
+        case 'skills':
+          resp.innerHTML = `<span class="text-emerald">Languages:</span> Python, JavaScript<br><span class="text-purple-400">Frameworks:</span> Django, Bootstrap<br><span class="text-cyan">Databases:</span> SQL, MySQL, SQLite<br><span class="text-slate-300">Core:</span> OOP, DBMS, CRUD workflows, Authentication, Clean Architecture`;
+          break;
+        case 'training':
+          resp.innerHTML = `<span class="text-purple-400">Full-Stack Web Development Trainee @ Cybrom Technology, Bhopal (Dec '25 – Jun '26)</span><br><span class="text-slate-400">Industrial training in Python, Django, database schema design, and user authentication.</span>`;
+          break;
+        case 'projects':
+          resp.innerHTML = `
+            <p class="text-emerald">1. StudyBridge [LIVE]</p>
+            <p class="text-slate-400">Tutor-student platform with schedules, batching & notice board. <br>URL: https://studybridge-ryew.onrender.com</p>
+            <p class="text-cyan mt-1.5">2. Doctor Appointment Booking System [LIVE]</p>
+            <p class="text-slate-400">Healthcare scheduling & slot allocation portal. <br>URL: https://doctor-appointment-booking-system-09y2.onrender.com</p>
+            <p class="text-emerald mt-1.5">3. Semester Registration System [LIVE]</p>
+            <p class="text-slate-400">Exam registration portal with user authentication, full CRUD operations & validations. <br>URL: https://semester-registration-system.onrender.com</p>
+            <p class="text-purple-400 mt-1.5">4. SecureShift (Encrypt & Decrypt) [LIVE]</p>
+            <p class="text-slate-400">Caesar Cipher shift encryption & decryption utility. <br>URL: https://secureshift-lf91.onrender.com</p>
+          `;
+          break;
+        case 'education':
+          resp.innerHTML = `<span class="text-cyan">B.Tech CSE (2022-2026)</span> - Radharaman Institute of Technology & Science, Bhopal<br><span class="text-slate-400">12th Science (2018-2020)</span> - BSEB Board<br><span class="text-slate-400">10th Matric (2017-2018)</span> - BSEB Board`;
+          break;
+        case 'contact':
+          resp.innerHTML = `<span class="text-cyan">Email:</span> maazusmani15@gmail.com | <span class="text-emerald">Phone:</span> +91 7324886683<br><span class="text-purple-400">GitHub:</span> https://github.com/maaz-usmani-cse<br><span class="text-blue-400">LinkedIn:</span> https://linkedin.com/in/maaz-usmani-cse`;
+          break;
+        case 'clear':
+          termBody.innerHTML = '';
+          termInput.value = '';
+          return;
+        default:
+          resp.className = 'pl-4 text-xs font-mono text-red-400';
+          resp.innerHTML = `Command '${val}' not recognized. Type <span class="text-emerald font-bold">'help'</span>.`;
+      }
+
+      termBody.appendChild(resp);
+      termInput.value = '';
+      termBody.scrollTop = termBody.scrollHeight;
+    });
+
+    // Contact Form submission handling (no alerts)
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending message...`;
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="fa-solid fa-check"></i> Message Transmitted!`;
+        formStatus.classList.remove('hidden');
+        formStatus.className = 'text-center text-xs font-mono pt-2 text-emerald';
+        formStatus.textContent = "Thank you! Your message has been sent successfully to Maaz Usmani.";
+        contactForm.reset();
+
+        setTimeout(() => {
+          submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Send Message`;
+          formStatus.classList.add('hidden');
+        }, 5000);
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
-
-
-
